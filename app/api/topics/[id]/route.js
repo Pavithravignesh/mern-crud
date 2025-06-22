@@ -2,15 +2,16 @@ import connectMongoDB from "@/libs/mongodb";
 import Topic from "@/models/topic";
 import { NextResponse } from "next/server";
 
-export async function PUT(req, res) {
+export async function PUT(req, { params }) {
   console.log("at put");
-  const { id } = res.params;
-  const { newTitle: title, newDescription: description } = req.json();
+  const { id } = params;
+  const { newTopic: topic, newDescription: description } = await req.json();
   await connectMongoDB();
-  await Topic.findByIdAndUpdate(id, { title, description });
+  console.log({ topic, description });
+  await Topic.findByIdAndUpdate(id, { topic, description });
   return NextResponse.json(
     {
-      message: "record has been updated successfully!",
+      message: { topic, description },
     },
     { status: 200 }
   );

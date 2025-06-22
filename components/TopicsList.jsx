@@ -12,9 +12,7 @@ export default function TopicsList({ e }) {
           <div className="font-semi">{e.description}</div>
         </div>
         <div className="flex justify-between gap-2">
-          <div className="font-bold">
-            <Remove />
-          </div>
+          <Remove id={e._id} />
           <Link href={`/editTopics/${e._id}`} className="font-semibold">
             Edit
           </Link>
