@@ -3,6 +3,7 @@ import Topic from "@/models/topic";
 import { NextResponse } from "next/server";
 
 export async function PUT(req, res) {
+  console.log("at put");
   const { id } = res.params;
   const { newTitle: title, newDescription: description } = req.json();
   await connectMongoDB();
@@ -18,6 +19,6 @@ export async function PUT(req, res) {
 export async function GET(req, res) {
   const { id } = res.params;
   await connectMongoDB();
-  const topic = await Topic.findById(id);
-  return NextResponse.json({ topic }, { status: 200 });
+  const topics = await Topic.findById(id);
+  return NextResponse.json({ topics }, { status: 200 });
 }

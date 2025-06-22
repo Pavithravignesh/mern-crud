@@ -1,28 +1,37 @@
-export default function EditTopics() {
+import Edit from "@/components/Edit";
+
+async function getTopicById(id) {
+  console.log(id);
+  try {
+    const response = await fetch(`http://localhost:3000/api/topics/${id}`, {
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error("Failed to get response!");
+    }
+    return response.json();
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+}
+
+export default async function EditTopics({ params }) {
+  const { id } = params;
+  const { topics } = await getTopicById(id);
+  console.log(topics);
+
+  if (!topics) {
+    return <div>Failed to load topic</div>;
+  }
+
   return (
     <>
-      <form action="" className="flex flex-col">
-        <input
-          type="text"
-          name=""
-          id=""
-          placeholder="enter Topics"
-          className="bg-gray-300 border-blue-600 border-2"
-        />
-        <input
-          type="text"
-          name=""
-          id=""
-          placeholder="enter description"
-          className="bg-gray-300 border-blue-600 border-2 mt-2"
-        />
-        <button
-          type="submit"
-          className="bg-blue-700 border-black-600 border-2 mt-2"
-        >
-          Update Topics
-        </button>
-      </form>
+      <Edit
+        topic={topics.topic}
+        description={topics.description}
+        id={topics._id}
+      />
     </>
   );
 }

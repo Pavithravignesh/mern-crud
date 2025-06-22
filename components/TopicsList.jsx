@@ -15,7 +15,7 @@ export default function TopicsList({ e }) {
           <div className="font-bold">
             <Remove />
           </div>
-          <Link href={"/editTopics"} className="font-semibold">
+          <Link href={`/editTopics/${e._id}`} className="font-semibold">
             Edit
           </Link>
         </div>
